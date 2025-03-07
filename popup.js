@@ -1,10 +1,10 @@
 const setupSection = document.getElementById("setup-section");
 const editSection = document.getElementById("edit-section");
 const apiKeyInput = document.getElementById("apiKeyInput");
-const saveApiKeyButton = document.getElementById("saveApiKeyButton");
+const saveApiKeyButton = document.getElementById("saveButton");
 const editApiKeyInput = document.getElementById("editApiKeyInput");
-const editApiKeyButton = document.getElementById("editApiKeyButton");
-const saveEditApiKeyButton = document.getElementById("saveEditApiKeyButton");
+const editApiKeyButton = document.getElementById("editButton");
+const saveEditApiKeyButton = document.getElementById("saveEditButton");
 
 
 function loadApiKey() {

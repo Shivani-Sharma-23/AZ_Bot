@@ -3,20 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AZ Chat Bot || API Key Configuration</title>
+  <title>AZ Chat Bot</title>
   <link rel="stylesheet" href="popup.css">
 </head>
 <body>
   <div id="setup-section">
-    <h3>Enter API Key</h3>
+    <h2><img src="assets/ext-icon.png" alt="icon" >  AZ Bot</h2>
+    <h3>API Key</h3>
     <input type="text" id="apiKeyInput" placeholder="Enter API Key">
-    <button id="saveApiKeyButton">Save API Key</button>
+    <button id="saveButton">Save API Key</button>
   </div>
   <div id="edit-section" style="display: none;">
-    <h3>API Key</h3>
+    <h2><img src="assets/ext-icon.png" alt="icon" width="10" height="10">AZ Bot</h2>
+    <h3>Enter Your API Key:</h3>
     <input type="text" id="editApiKeyInput" readonly>
-    <button id="editApiKeyButton">Edit</button>
-    <button id="saveEditApiKeyButton" style="display: none;">Save</button>
+    <button id="editButton">Edit</button>
+    <button id="saveEditButton" style="display: none;">Save</button>
   </div>
   <script src="popup.js"></script>
 </body>

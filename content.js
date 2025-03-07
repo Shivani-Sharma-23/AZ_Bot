@@ -1,5 +1,3 @@
-// Global Variable Declaration
-
 let lastUrl = ""
 let problemDetails = {}
 let XhrRequestData = ""
@@ -8,8 +6,6 @@ recognition.lang = 'en-IN';
 recognition.continuous = false;
 recognition.interimResults = false;
 
-
-// Mutation observe and function to detect page change , and problem page
 
 function areRequiredElementsLoaded() {
   const problemTitle = document.getElementsByClassName("Header_resource_heading__cpRp1")[0]?.textContent.trim();
@@ -55,9 +51,7 @@ observer.observe(document.body, {
   subtree: true,
 });
 
-// Mutation Observer Done
-
-// Elements related functions
+// Button placement
 
 function createElement() {
   const doubtButton = document.getElementsByClassName("Header_resource_heading__cpRp1 rubik fw-bold mb-0 fs-4")[0];
@@ -84,16 +78,19 @@ function createButtonContainer() {
 function createHelpButton() {
   const helpButton = document.createElement("button");
   helpButton.id = "help-button";
-  helpButton.className = "ant-btn css-19gw05y ant-btn-default Button_gradient_light_button__ZDAR_ coding_ask_doubt_button__FjwXJ gap-1 py-2 px-3 overflow-hidden";
-  helpButton.style.height = "fit-content";
+  helpButton.className = "btn"; // Remove "btn-primary" to avoid blue background
+  helpButton.style.background = "transparent"; // Make background transparent
+  helpButton.style.border = "none"; // Remove any border
+  helpButton.style.padding = "0"; // Remove padding
+  helpButton.style.cursor = "pointer"; 
   helpButton.innerHTML = `
-          <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true" height="20" width="20" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M8 10h8M8 14h4m5 5l-3-3H6a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v8a2 2 0 01-2 2h-3l-3 3z"></path>
-          </svg>
-          <span class="coding_ask_doubt_gradient_text__FX_hZ">AI Help</span>
+  <img src="https://img.icons8.com/?size=100&id=BmgXdso0krQO&format=png&color=000000" style="height: 40px; width: 40px;"/>
+          
       `;
   return helpButton
 }
+
+
 function cleanElements() {
   const buttonContainer = document.getElementById("help-button");
   if (buttonContainer) buttonContainer.remove();
@@ -251,76 +248,66 @@ function openChatBox() {
 
 function createModal() {
   const modalHtml = `
-    <div id="modalContainer" class="w-100 h-100 position-fixed d-flex align-items-start justify-content-center hide-scrollbar" style="z-index: 100; top: 0px; left: 0px; background-color: rgba(23, 43, 77, 0.8); backdrop-filter: blur(8px); overflow-y: auto;">
-      <section class="overflow-hidden p-4 w-100 h-100">
-        <div class="DoubtForum_new_post_modal_container__hJcF2 border_primary border_radius_12 d-flex flex-column" style="height: 100%;">
-          <!-- Header -->
-          <div class="mb-4 text-center">
-            <h1 class="DoubtForum_text_color__ndqRv ruibk fs-3 fw-bold mt-4">Chat with AI</h1>
-            <div class="d-flex justify-content-end position-absolute" style="right: 2.5rem; top: 3rem;">
-              <button type="button" class="ant-btn css-19gw05y ant-btn-text ant-btn-icon-only undefined DoubtForum_text_color__ndqRv  d-flex align-items-center justify-content-center" id="closeAIBtn">
-                <span class="ant-btn-icon">
-                  <span role="img" aria-label="close" class="anticon anticon-close">
-                    <svg fill-rule="evenodd" viewBox="64 64 896 896" focusable="false" data-icon="close" width="1em" height="1em" fill="currentColor" aria-hidden="true">
-                      <path d="M799.86 166.31c.02 0 .04.02.08.06l57.69 57.7c.04.03.05.05.06.08a.12.12 0 010 .06c0 .03-.02.05-.06.09L569.93 512l287.7 287.7c.04.04.05.06.06.09a.12.12 0 010 .07c0 .02-.02.04-.06.08l-57.7 57.69c-.03.04-.05.05-.07.06a.12.12 0 01-.07 0c-.03 0-.05-.02-.09-.06L512 569.93l-287.7 287.7c-.04.04-.06.05-.09.06a.12.12 0 01-.07 0c-.02 0-.04-.02-.08-.06l-57.69-57.7c-.04-.03-.05-.05-.06-.07a.12.12 0 010-.07c0-.03.02-.05.06-.09L454.07 512l-287.7-287.7c-.04-.04-.05-.06-.06-.09a.12.12 0 010-.07c0-.02.02-.04.06-.08l57.7-57.69c.03-.04.05-.05.07-.06a.12.12 0 01.07 0c.03 0 .05.02.09.06L512 454.07l287.7-287.7c.04-.04.06-.05.09-.06a.12.12 0 01.07 0z"></path>
-                    </svg>
-                  </span>
-                </span>
-              </button>
-            </div>
+    <div id="modalContainer" class="position-fixed d-flex align-items-center justify-content-center" 
+         style="z-index: 100; top: 0; left: 0; width: 100%; height: 100%; border: 1px solid #3b5262; background-color: rgba(13, 37, 47, 0.5);">
+      <section id="chatModal" class="overflow-hidden" 
+               style="width: 25%; min-width: 600px; background-color: #161d29; border-radius: 12px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); position: relative;">
+        
+        
+       <!-- Header -->
+      <div class="d-flex justify-content-between align-items-center p-3">
+        <h1 style="color: #ffffff; font-size: 1.5rem; font-weight: bold; margin: 0;">AZ Bot</h1>
+        
+        <!-- Icons Container -->
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div id="delete-button" style="cursor: pointer;">
+            <img src="https://img.icons8.com/?size=100&id=VgD4MAsSpcoD&format=png&color=000000" 
+                style="width: 20px; height: 20px;" alt="Delete History">
           </div>
 
-          <!-- Button Container -->
-          <div id="button-container" style="display: flex; justify-content: flex-end; gap: 10px; margin-bottom: 15px;" class="mx-2">
-            <button type="button" id="delete-button" class="ant-btn css-19gw05y ant-btn-default Button_gradient_light_button__ZDAR_ coding_ask_doubt_button__FjwXJ gap-1 py-2 px-3 overflow-hidden" style="height: fit-content;">
-              <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true" height="20" width="20" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M19 7H5m4-3h6a1 1 0 0 1 1 1v1M9 4h6m4 3v11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V7h14zM10 11v6m4-6v6" />
-              </svg>
-              <span class="coding_ask_doubt_gradient_text__FX_hZ">Delete History</span>
-            </button>
-            <button id="export-chat-button" class="ant-btn css-19gw05y ant-btn-default Button_gradient_light_button__ZDAR_ coding_ask_doubt_button__FjwXJ gap-1 py-2 px-3 overflow-hidden" style="height: fit-content;">
-              <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true" height="20" width="20" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M5 5v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2z" />
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 2v6m-3 4h6" />
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9 16h6" />
-              </svg>
-              <span class="coding_ask_doubt_gradient_text__FX_hZ">Export Chat</span>
-            </button>
+          <div id="export-chat-button" style="cursor: pointer;">
+            <img src="https://img.icons8.com/?size=100&id=WPczhvGoyank&format=png&color=000000" 
+                style="width: 20px; height: 20px;" alt="Export Chat">
           </div>
 
-          <!-- Chat Display -->
-          <div id="chatBox" class="bg-body-secondary p-3 rounded overflow-auto mb-3 m-2" style="height: 500px;">
-            <!-- Chat messages will appear here -->
-            
-          </div>
+          <img src="https://img.icons8.com/?size=100&id=KAJtDlcK42LW&format=png&color=000000" id="closeAIBtn" 
+              style="width: 24px; height: 24px; cursor: pointer;" alt="Close">
+        </div>
+      </div>
 
-          <!-- User Input Section -->
-          <div class="d-flex align-items-center m-2 flex-wrap bg-body-secondary" style="gap: 10px; border-radius:5px">
-            <textarea id="userMessage" class="form-control bg-body-secondary" placeholder="Ask your doubt" rows="2" style="flex: 1;resize:none;" required></textarea>
-            <button type="button" class="ant-btn css-e6z5vk ant-btn-submit" id="voiceType" style="padding:0px; border:0px;"> 
-    <span>
-       <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true" height="28" width="28">
-  <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0z"/>
-  <path d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5"/>
-</svg>
-    </span>
-</button>
+        <!-- Chat Display -->
+        <div id="chatBox" class="p-3 rounded overflow-auto mx-2 mb-3" 
+             style="height: 350px; background-color: #1F2836; color: #ffffff; scrollbar-width: thin; scrollbar-color: #557276 #2b384e; border: 1px solid #3b5262;">
+          <!-- Chat messages will appear here -->
+        </div>
 
-
-            <button type="button" class="ant-btn css-e6z5vk ant-btn-submit" id="sendMsg" style="margin-right:5px; border:0px;"><span>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true" height="24" width="24">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M21 2L11 12M21 2L15 21l-4-9-9-4 12-4L21 2z"></path>
-</svg>
-
-            </span></button>
-          </div>
+        <!-- User Input Section -->
+        <div class="d-flex align-items-center mx-2 mb-3" style="gap: 10px; background-color: #2b384e border-radius: 5px; padding: 5px;">
+          <textarea id="userMessage" class="form-control" 
+                   placeholder="Ask your doubt" rows="2" 
+                   style="flex: 1; resize: none; background-color: #1F2836; color: #ffffff; border: none; outline: none; border: 1px solid #3b5262;"></textarea>
+          
+          <img src="https://img.icons8.com/?size=100&id=41037&format=png&color=000000" id="voiceType" 
+               style="width: 20px; height: 20px; cursor: pointer;" alt="Voice">
+               
+          <img src="https://img.icons8.com/?size=100&id=g8ltXTwIfJ1n&format=png&color=000000" id="sendMsg" 
+               style="width: 20px; height: 20px; cursor: pointer; margin-right: 5px;" alt="Send">
         </div>
       </section>
     </div>
-    `;
 
+    <style>
+  #userMessage::placeholder {
+      color: #ffffff; 
+      opacity: 0.5; 
+  }
+</style>
+  `;
+
+  // Insert modal into the body
   document.body.insertAdjacentHTML("beforeend", modalHtml);
-  return document.getElementById('modalContainer');
+
+  return document.getElementById("modalContainer");
 }
 
 
@@ -488,64 +475,68 @@ function enableSendButton() {
 }
 
 function decorateMessage(message, isUser) {
-  return `<div style="
-    display: flex;
-    justify-content: ${isUser ? 'flex-end' : 'flex-start'};
-    margin-bottom: 15px;
-  ">
-    <div style="
-      padding: 10px;
-      border-radius: 15px;
-      max-width: 70%;
+  if (isUser) {
+    return `<div style="
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 10px;
+    ">
+      <div style="
+        padding: 10px;
+        border-radius: 8px;
+        max-width: 70%;
+        font-family: 'Roboto', Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.4;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        background-color: #2b384e;
+        color: #ffffff;
+        text-align: center;
+        word-break: break-word;
+      "
+        class="user-message"
+        data-feedback='0'
+      >
+        ${message}
+      </div>
+    </div>`;
+  } else {
+    return `<div style="
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-direction: column;
+      margin-bottom: 4px;
       font-family: 'Roboto', Arial, sans-serif;
-      font-size: 16px;
-      line-height: 1.5;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      background-color: ${isUser ? '#cce8ff' : '#ffffff'};
-      color: ${isUser ? '#003366' : '#333333'};
-      text-align: left;
-    "
-      class="${isUser ? 'user-message' : 'bot-message'}"
-      data-feedback='0'
-    >
-      ${message}
-      ${!isUser ? `
-        <div style="display: flex; margin-top: 10px;">
+      font-size: 14px;
+      line-height: 1.4;
+      color: #ffffff;
+      width: 80%;
+    ">
+      <div style="max-width: 100%; text-align: left; background: #1e2838; padding: 0px 0px; border-radius: 12px;">
+        ${message}
+      </div>
+      <div style="margin-top: 6px; display: flex; align-items: center;">
         <button style="
-        margin-left: 10px;
-        border: none;
-        background: none;
-        cursor: pointer;
-        color: #007bff;
-        font-size: 16px;
-        padding: 0;
-      " 
-        class="play-sound-button">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-volume-up" viewBox="0 0 16 16">
-          <path d="M11.536 14.01A8.47 8.47 0 0 0 14.026 8a8.47 8.47 0 0 0-2.49-6.01l-.708.707A7.48 7.48 0 0 1 13.025 8c0 2.071-.84 3.946-2.197 5.303z"/>
-          <path d="M10.121 12.596A6.48 6.48 0 0 0 12.025 8a6.48 6.48 0 0 0-1.904-4.596l-.707.707A5.48 5.48 0 0 1 11.025 8a5.48 5.48 0 0 1-1.61 3.89z"/>
-          <path d="M10.025 8a4.5 4.5 0 0 1-1.318 3.182L8 10.475A3.5 3.5 0 0 0 9.025 8c0-.966-.392-1.841-1.025-2.475l.707-.707A4.5 4.5 0 0 1 10.025 8M7 4a.5.5 0 0 0-.812-.39L3.825 5.5H1.5A.5.5 0 0 0 1 6v4a.5.5 0 0 0 .5.5h2.325l2.363 1.89A.5.5 0 0 0 7 12zM4.312 6.39 6 5.04v5.92L4.312 9.61A.5.5 0 0 0 4 9.5H2v-3h2a.5.5 0 0 0 .312-.11"/>
-        </svg>
-      </button>
-      <button style="
-        margin-left: 10px;
-        border: none;
-        background: none;
-        cursor: pointer;
-        font-size: 16px;
-        padding: 0;
-      " 
-        class="copy-text">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
-  <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1z"/>
-  <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0z"/>
-</svg>
-      </button>
-        </div>
-      ` : ''}
-    </div>
-  </div>`;
+          border: none;
+          background: none;
+          cursor: pointer;
+          font-size: 14px;
+          color:#ffffff;
+          display: flex;
+          align-items: center;
+          padding: 0;
+        " class="copy-text">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+            <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1z"/>
+            <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0z"/>
+          </svg>
+        </button>
+      </div>
+    </div>`;
+  }
 }
+
 
 async function displayMessages(problemId) {
   try {
