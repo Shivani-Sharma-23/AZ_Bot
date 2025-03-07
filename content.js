@@ -60,7 +60,7 @@ observer.observe(document.body, {
 // Elements related functions
 
 function createElement() {
-  const doubtButton = document.getElementsByClassName("coding_ask_doubt_button__FjwXJ")[0];
+  const doubtButton = document.getElementsByClassName("Header_resource_heading__cpRp1 rubik fw-bold mb-0 fs-4")[0];
 
   const buttonContainer = createButtonContainer()
   doubtButton.parentNode.insertBefore(buttonContainer, doubtButton);

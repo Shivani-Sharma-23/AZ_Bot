@@ -2,6 +2,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 10px;
     width: 300px;
+    color:#161d29 ;
   }
   
   h3 {
@@ -21,7 +22,7 @@ body {
     margin: 5px 0;
     cursor: pointer;
     border: none;
-    background-color: #007bff;
+    background-color: #1f2a40;
     color: white;
     border-radius: 4px;
   }
