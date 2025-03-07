@@ -247,7 +247,7 @@ function openChatBox() {
 function createModal() {
   const modalHtml = `
     <div id="modalContainer" class="position-fixed d-flex align-items-center justify-content-center" 
-         style="z-index: 100; top: 0; left: 0; width: 100%; height: 100%; border: 1px solid #3b5262; background-color: rgba(13, 37, 47, 0.5);">
+         style="z-index: 100; top: 0; left: 0; width: 100%; height: 100%; border: 1px solid #3b5262; background-color: rgba(4, 23, 31, 0.8);">
       <section id="chatModal" class="overflow-hidden" 
                style="width: 25%; min-width: 600px; background-color: #161d29; border-radius: 12px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); position: relative;">
         
