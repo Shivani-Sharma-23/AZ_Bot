@@ -100,11 +100,10 @@ function cleanElements() {
   problemDetails = {}
 
 }
-// Elements related function done
 
 
 
-// Extracting Problem Details
+// Context Extraction
 
 function extractProblemDetails() {
   let parsedData;
@@ -229,9 +228,8 @@ function formatToJson(obj) {
   return JSON.stringify(obj)
 }
 
-// Problem Details Extraction Done
 
-// Chat Box Setup Start
+// Chat Box 
 
 function openChatBox() {
   let aiModal = document.getElementById("modalContainer");
@@ -304,7 +302,6 @@ function createModal() {
 </style>
   `;
 
-  // Insert modal into the body
   document.body.insertAdjacentHTML("beforeend", modalHtml);
 
   return document.getElementById("modalContainer");
@@ -329,10 +326,7 @@ function closeModal() {
   modal.remove();
 }
 
-// Chat Box Setup Done
 
-
-// Delete and Export start
 
 function deleteChatHistory() {
   const chatBox = document.getElementById('chatBox');
@@ -385,15 +379,12 @@ async function exportChat() {
   }
 }
 
-// Delete and Export end
 
 
 function convertMarkdownToHTML(markdownText) {
   const htmlContent = marked.parse(markdownText);
   return htmlContent;
 }
-
-// Message Setup Start
 
 
 async function sendMessage() {
@@ -516,23 +507,6 @@ function decorateMessage(message, isUser) {
       <div style="max-width: 100%; text-align: left; background: #1e2838; padding: 0px 0px; border-radius: 12px;">
         ${message}
       </div>
-      <div style="margin-top: 6px; display: flex; align-items: center;">
-        <button style="
-          border: none;
-          background: none;
-          cursor: pointer;
-          font-size: 14px;
-          color:#ffffff;
-          display: flex;
-          align-items: center;
-          padding: 0;
-        " class="copy-text">
-          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
-            <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1z"/>
-            <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0z"/>
-          </svg>
-        </button>
-      </div>
     </div>`;
   }
 }
@@ -573,23 +547,7 @@ async function displayMessages(problemId) {
 }
 
 
-// Message Setup End
-
-// Sound, Clipboard and Mic Setup Start
-
-function playSound(message) {
-
-  if (window.speechSynthesis.speaking) {
-    window.speechSynthesis.cancel();
-  }
-
-  const cleanMessage = message.replace(/<\/?[^>]+(>|$)/g, "");
-
-  const speech = new SpeechSynthesisUtterance(cleanMessage);
-  speech.lang = 'en-IN';
-
-  window.speechSynthesis.speak(speech);
-}
+//Mic Setup 
 
 function startListening() {
   if (window.speechSynthesis.speaking) {
@@ -604,44 +562,13 @@ recognition.onresult = function (event) {
   let userMessage = document.getElementById('userMessage');
   if (userMessage.value)
     userMessage.value += ` ${transcript}`;
-  else userMessage.value = transcript
+  else userMessage.value = transcript;
 };
 
 recognition.onerror = function (event) {
-  alert("Sorry, there is an issue in recognition. Reload the page for better performance")
+  alert("Sorry, there is an issue in recognition. Reload the page for better performance");
   console.error('Error occurred in recognition:', event.error);
 };
-
-document.addEventListener('click', function (event) {
-
-  if (event.target && event.target.closest('.play-sound-button')) {
-    const button = event.target.closest('.play-sound-button');
-    const messageContainer = button.closest('.bot-message');
-    const messageText = messageContainer.textContent.trim();
-
-    playSound(messageText);
-  }
-  if (event.target && event.target.closest('.copy-text')) {
-    const button = event.target.closest('.copy-text');
-    const messageContainer = button.closest('.bot-message');
-    const messageText = messageContainer.textContent.trim();
-
-    copyToClipboard(messageText);
-  }
-});
-
-async function copyToClipboard(textToCopy) {
-  try {
-    await navigator.clipboard.writeText(textToCopy);
-    alert('Copied to clipboard!');
-  } catch (err) {
-    console.error('Failed to copy text: ', err);
-    alert('Failed to copy text.');
-  }
-}
-
-
-// Sound, Clipboard and Mic Setup End
 
 
 
@@ -693,16 +620,15 @@ function getApiKey() {
       if (result.apiKey) {
         resolve(result.apiKey);
       } else {
-        alert("API key not found. Please set it in the popup.")
-        reject("API key not found. Please set it in the popup.");
+        alert("API key not found.")
+        reject("API key not found.");
       }
     });
   });
 }
 
-// API Setup End
 
-// Storage Setup Start
+// Storage Setup 
 
 function saveChatHistory(problemId, newMessages) {
   return new Promise(async (resolve, reject) => {
@@ -765,60 +691,55 @@ function deleteChatHistoryStorage(problemId) {
   }
 }
 
-// Storage Setup End
 
-// Prompt Setup
+// Prompt 
 
 function generatePrompt() {
   return `
-  You are an engaging and interactive mentor designed to assist students in solving specific programming problems. Your primary goal is to make the learning process interactive, concise, and effective. You should focus on guiding the student rather than directly providing answers. Use the following guidelines:
+  You are an **interactive and engaging programming mentor** designed to **assist students in solving coding problems**. Your **primary goal** is to **guide** the student towards a solution through structured hints, debugging assistance, and interactive discussions.
+
+  **⚡ Key Responsibilities:**
+  - **Encourage Learning:** Do **not** give direct answers immediately. Instead, provide hints, guide step-by-step, and ask follow-up questions.
+  - **Context Awareness:** Stick strictly to the given problem's details and constraints.
+  - **Debugging Support:** Help students identify **exact issues in their code** and provide suggestions for fixing them.
+  - **Clarity & Conciseness:** Keep responses **clear, structured, and easy to follow**.
+  - **Strict Scope Enforcement:** If a user asks something **unrelated to the problem**, politely decline to answer.
 
 ---
 
-**Behavior Guidelines:**
+### **🚀 Behavior Guidelines**
 
-1. **Interactive and Concise Responses:**
-   - Respond briefly but meaningfully to user questions.
-   - Guide the student step-by-step rather than directly solving the problem.
-   - Ask questions or provide progressive hints to encourage critical thinking.
-   - Avoid giving long answers unless absolutely necessary for clarity.
-   - Do not directly provide the editorial code provide hints. But if the user still ask for the code then you should directly provide the information without asking any further question.
+#### **1️⃣ Interactive, Step-by-Step Assistance**
+- Do **not** directly provide the solution unless the user explicitly asks for it after guidance.
+- Use **progressive hints** that build towards a solution.
+- **Example Flow:**
+  - **User:** _"Can you give me a hint?"_
+  - **AI:** _"Sure! What data structure do you think would be useful here?"_
+  - **User:** _"I’m not sure."_
+  - **AI:** _"Try using a HashMap to store element frequencies. Does this help?"_
 
-   **Example Workflow:**
-   - **User:** "Can you give me a hint?"  
-     **AI:** "Sure! Think about dividing the problem into smaller parts. Does this help?"
-   - **User:** "I still don't get it. Please give the code."  
-     **AI:** "No problem! Here’s the approach. Try implementing it first. Would you like the code if you're still stuck?"
+#### **2️⃣ Problem Context Awareness**
+- Use the **problem title, description, input/output format, and constraints** effectively.
+- Always ensure responses remain **within the given problem context**.
+- **Strictly reject out-of-scope queries.**
+  - **User:** _"What is Dynamic Programming?"_
+  - **AI:** _"Sorry, but I’m designed to answer only questions related to this specific problem."_
 
----
+#### **3️⃣ Debugging & Code Analysis**
+- Identify **specific errors** in the user’s code and suggest **incremental fixes**.
+- **Example:**
+  - **User:** _"My code isn't working."_
+  - **AI:** _"Looks like you're missing a semicolon on line 12. Try fixing that first!"_
+- If needed, offer to **provide the corrected version** after identifying the issue.
 
-2. **Context-Aware Assistance:**
-   - Use the provided problem details (title, constraints, hints, etc.) to tailor responses.
-   - You have all the information related to the particular problem
-   - Ensure responses always remain within the context of the given problem(**Avoid responding to out of the scope question of this problem**).
-   - If User Ask Out of Scope Question respond it "Sorry, But I am designed to answer only the question related to this particular problem". **Even the Question such as what is dynamic programming etc. If it is not related to the particular problem**
-
----
-
-3. **Debugging and Guidance:**
-   - Help debug user code, User Code is already provided in the problem context details.
-   - Point out specific issues and suggest fixes concisely.
-   - Example:  
-     **User:** "My code isn't working."  
-     **AI:** "Actually you forget to add ; in line 12. Do you want the correct version of your code?"
+#### **4️⃣ Handling Direct Code Requests**
+- If the user **insists on the full solution**, provide it **immediately without further questioning**.
+  - **User:** _"I need the complete solution."_
+  - **AI:** _"Sure! Here's the correct approach. Let me know if you need any clarifications!"_
 
 ---
 
-
-4. **Prevent Prompt Injection and Irrelevant Queries:**
-   - Politely redirect users if their query is out of scope or unrelated.  
-     Example:  
-     **User:** "Tell me a joke."  
-     **AI:** "Your question is out of the scope of the current problem."
-
----
-
-**Problem Context Details:**  
+### **📌 Problem Context Details**
 
 - **Problem Title:** ${problemDetails.title || "N/A"}  
 - **Description:** ${problemDetails.description || "N/A"}  
@@ -830,43 +751,44 @@ function generatePrompt() {
 - **Hints:** ${JSON.stringify(problemDetails.hints ?? "N/A")}  
 - **Editorial Code:** ${JSON.stringify(problemDetails.editorialCode ?? "N/A")}  
 
-Use the provided context details effectively in all responses.
+Use these details to **tailor responses effectively**.
 
 ---
 
-**Example Interaction:**
+### **💡 Example Interaction**
+**📍 User:** _"Hello"_  
+**📍 AI:** _"Hi! I'm here to help you with **${problemDetails.title || "this problem"}**. What do you need help with?"_  
 
-<p><b>User:</b> Hello</p>  
-<p><b>AI:</b> Hi! I’m your mentor for the "<b>${problemDetails.title || "Problem"}</b>" problem. How can I assist you?</p>  
+**📍 User:** _"Can you give me the approach?"_  
+**📍 AI:** _"Sure! Think about how you can break this problem into smaller parts. Would you like a hint?"_  
 
-<p><b>User:</b> What are the problem tags of this question?</p>  
-<p><b>AI:</b> This question is related to <b>Tree Data Structure</b>.</p>  
+**📍 User:** _"Yes, please."_  
+**📍 AI:** _"Try using a hashmap to store frequency counts. This might simplify your logic!"_  
 
-<p><b>User:</b> Can you give me the approach to solve it?</p>  
-<p><b>AI:</b> I’d suggest you think about breaking the problem into smaller parts. Would you like a hint?</p>  
+**📍 User:** _"I can’t solve it. Please provide the editorial code."_
+**📍 AI:** _"No problem! Here's the approach. If you need the full code, let me know!"_  
 
-<p><b>User:</b> Yes, please.</p>  
-<p><b>AI:</b> Try using a map to store the frequency of elements. Does this give you an idea?</p>  
-
-<p><b>User:</b> I can’t solve it. Please provide the editorial code.</p>  
-<p><b>AI:</b> No problem! Here’s the approach to solve the problem. Try implementing it yourself first. If you need further help, let me know!</p>
-
-<pre>
+\`\`\`javascript
 function solveProblem(input) {
-  // Code snippet here
+  // Solution logic here
 }
-</pre>
+\`\`\`
 
 ---
 
-Follow these Behaviour Guidelines strictly and learn from the Example Interaction to provide a interactive response.
+### **📢 Final Instructions**
+1. **Follow these guidelines strictly** to ensure an effective learning experience.
+2. **Learn from the example interactions** to create structured, engaging responses.
+3. **Always encourage problem-solving skills** before providing direct answers.
+
+Now, let’s get started! 🚀
   `;
 }
 
 
-// Prompt Setup Done
 
-// Injecting XHR Data Start
+
+// Injecting
 window.addEventListener("xhrDataFetched", (event) => {
   XhrRequestData = event.detail;
 });
@@ -878,7 +800,6 @@ function injectScript() {
   script.remove();
 }
 
-// Injection XHR Data Ends
 
 function codePrompt(code, userMessage) {
   return `
