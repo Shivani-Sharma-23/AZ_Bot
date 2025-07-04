@@ -1,6 +1,6 @@
 # **AZ Bot – Your AI Coding Companion**  
 
-🚀 **Enhance your coding experience** with this Gemini-powered ! Designed for **seamless problem-solving**, it provides **interactive guidance, debugging help, voice input, and markdown support**—all within your browser.  
+🚀 **Enhance your coding experience** with this Gemini-powered Chrome extension! Designed for **seamless problem-solving**, it provides **interactive guidance, debugging help, voice input, and markdown support**—all within your browser.  
 
 ---
 ## **Demo Video**  
