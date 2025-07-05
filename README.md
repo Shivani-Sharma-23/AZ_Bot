@@ -11,7 +11,7 @@ https://github.com/user-attachments/assets/7759b373-49de-44c3-99f3-40e93ced45b1
 ### **🎯 Smart AI Assistance**  
 - **Context-Aware Responses** – AI understands problem details, user code, constraints, and hints.  
 - **Step-by-Step solution** – Encourages learning before revealing the full solution.  
-- **Code Debugging** – Identifies errors.  
+- **Code Debugging** – Identifies errors and suggests fixes..  
 
 ### **🌟 User-Friendly Chat UI**  
 - **Minimalistic & Aesthetic Design** – A clean and aesthetic chatbox that blends with your workspace.  
